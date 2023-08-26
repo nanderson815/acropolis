@@ -13,10 +13,7 @@ const Profile = (props: ProfileProps) => {
         alignItems: 'center',
         flexGrow: 1,
       }}>
-      <Button
-        title="Back to home"
-        onPress={() => props.navigation.goBack()}
-      />
+      <Button title="Back to home" onPress={() => props.navigation.goBack()} />
       <Text>This is {name}'s profile</Text>
     </View>
   );
