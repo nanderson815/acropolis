@@ -1,26 +1,25 @@
 import React from 'react';
-import Main from './src/stacks/Main';
+import Feed from './src/stacks/feed/Feed';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Profile from './src/stacks/Profile';
 import {RootStackParamList} from './src/types/RouteProps';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tabs = createBottomTabNavigator<RootStackParamList>();
 
 export default function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen
-          name="Home"
-          component={Main}
-          options={{title: 'Welcome'}}
-        />
-        <Stack.Screen name="Profile" component={Profile} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <NavigationContainer>
+        <Tabs.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Tabs.Screen name="Feed" component={Feed} />
+          <Tabs.Screen name="Profile" component={Profile} />
+        </Tabs.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
