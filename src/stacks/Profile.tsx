@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import React, {useState} from 'react';
+import auth from '@react-native-firebase/auth';
 import {
   useColorScheme,
   View,
@@ -10,17 +10,16 @@ import {
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {Button, TextField} from 'react-native-ui-lib';
+import {useAuthUser} from '../shared/userAuthUser';
+import {useBackground} from '../shared/useBackground';
 
 const Profile = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const {backgroundStyle} = useBackground();
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  const {user, loading} = useAuthUser();
 
   // Set an initializing state whilst Firebase connects
-  const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
 
@@ -51,16 +50,6 @@ const Profile = () => {
         console.log('User signed out!');
       });
   };
-
-  function onAuthStateChanged(user: FirebaseAuthTypes.User | null) {
-    setUser(user);
-    if (loading) setLoading(false);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
 
   if (loading) return <Text>Loading...</Text>;
 
@@ -103,25 +92,6 @@ const Profile = () => {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 export default Profile;
-
-// const styles = StyleSheet.create({
-//   sectionContainer: {
-//     marginTop: 32,
-//     paddingHorizontal: 24,
-//   },
-//   sectionTitle: {
-//     fontSize: 24,
-//     fontWeight: '600',
-//   },
-//   sectionDescription: {
-//     marginTop: 8,
-//     fontSize: 18,
-//     fontWeight: '400',
-//   },
-//   highlight: {
-//     fontWeight: '700',
-//   },
-// });

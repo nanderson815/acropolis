@@ -5,6 +5,8 @@ import Profile from './src/stacks/Profile';
 import {RootStackParamList} from './src/types/RouteProps';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import Home from './src/stacks/home/Home';
+import Poll from './src/stacks/Poll';
 
 const Tabs = createBottomTabNavigator<RootStackParamList>();
 
@@ -17,6 +19,8 @@ export default function App(): JSX.Element {
             headerShown: false,
           }}>
           <Tabs.Screen name="Feed" component={Feed} />
+          <Tabs.Screen name="Home" component={Home} />
+          <Tabs.Screen name="Poll" component={Poll} />
           <Tabs.Screen name="Profile" component={Profile} />
         </Tabs.Navigator>
       </NavigationContainer>

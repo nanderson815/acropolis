@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Post} from '../../types/Post';
+import {Post} from '../types/Post';
 import firestore, {
   FirebaseFirestoreTypes,
 } from '@react-native-firebase/firestore';
@@ -18,7 +18,6 @@ function convertDataToPost(
     disagreeBy: data.disagreeBy,
     disagreeCount: data.disagreeCount,
     editedAt: data.editedAt,
-    title: data.title,
     userId: data.userId,
   };
 }

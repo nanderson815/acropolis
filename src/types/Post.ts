@@ -8,6 +8,5 @@ export interface Post {
     disagreeBy: string[];
     disagreeCount: number;
     editedAt?: string;
-    title: string;
     userId: string;
 }

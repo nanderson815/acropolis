@@ -1,37 +1,25 @@
 import React from 'react';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {HomeProps} from '../../types/RouteProps';
+import {FeedProps} from '../../types/RouteProps';
 import {Card} from 'react-native-ui-lib';
-import {
-  RefreshControl,
-  SafeAreaView,
-  StyleSheet,
-  useColorScheme,
-} from 'react-native';
+import {RefreshControl, SafeAreaView, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {usePosts} from './usePosts';
+import {usePosts} from '../../shared/usePosts';
 import {Post} from '../../types/Post';
+import {useBackground} from '../../shared/useBackground';
 
 function renderCard(post: Post) {
   return (
     <Card key={post.id} style={{marginBottom: 10}}>
       <Card.Section
-        content={[
-          {text: post.title, text70: true},
-          {text: post.body, text90: true},
-        ]}
+        content={[{text: post.body, text90: true}]}
         style={{padding: 10}}
       />
     </Card>
   );
 }
 
-export default function Feed({navigation}: HomeProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+export default function Feed({navigation}: FeedProps): JSX.Element {
+  const {backgroundStyle} = useBackground();
 
   const {loading, posts, refetch} = usePosts();
 
